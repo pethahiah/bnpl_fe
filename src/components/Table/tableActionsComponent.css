@@ -1,0 +1,18 @@
+.table-action-component-wrapper .table-action-component {
+  position: relative;
+}
+
+.table-action-component-wrapper .table-action-component .table-actions-menu {
+  width: 200px;
+  position: absolute;
+  right: 250%;
+  top: -20%;
+}
+
+.table-action-component-wrapper .table-action-component .table-actions-menu button {
+  width: 100%;
+}
+
+.customcsstablerow{
+  background-color: red m !important;
+}

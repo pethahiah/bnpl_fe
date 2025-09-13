@@ -1,0 +1,43 @@
+.genericBtn {
+  cursor: pointer;
+  height: 40px !important;
+  font-size: 14px;
+  text-transform: capitalize;
+  border: 0;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.8;
+}
+
+.genericBtn:hover {
+  opacity: 1;
+}
+
+.flat {
+  width: 100%;
+  background-color: #F55F64;
+  color: #FFFFFF;
+  margin: 30px 0;
+}
+
+.text {
+  color: #F55F64;
+  background: transparent;
+  margin: 0;
+}
+
+.contained {
+  border: 1px solid #F55F64;
+  color: #F55F64;
+  background: transparent;
+  margin: 30px 0;
+}
+.containedBlack {
+  border: 1px solid Black;
+  color: black;
+  background: transparent;
+  margin: 30px 0;
+}

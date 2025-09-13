@@ -1,0 +1,249 @@
+.side-nav {
+  height: 100vh;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 15px;
+  box-sizing: border-box;
+  transition: all 0.2s;
+  z-index: 9;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(190, 190, 190, 0.734);
+  scrollbar-gutter: stable;
+}
+
+.side-nav .logo-wrapper {
+  margin-bottom: 15px;
+  margin: auto;
+  background-color: white;
+  z-index: 1;
+}
+
+.side-nav .logo-wrapper img {
+  object-fit: contain;
+}
+
+.side-nav ul {
+  list-style-position: outside;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.side-nav li {
+  list-style-type: none;
+  width: 100%;
+  margin: 5px auto;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.side-nav li svg {
+  margin-right: 8px;
+}
+
+.side-nav li path {
+  fill: #222222B2 !important;
+}
+
+.side-nav li path.stroked {
+  fill: none !important;
+  stroke: #222222B2 !important;
+}
+
+.side-nav li span {
+  color: #222222B2 !important;
+}
+
+.side-nav li:hover {
+  background-color: #F55F641A;
+}
+
+.side-nav li.selected.link {
+  background-color: #F55F641A;
+}
+
+.side-nav li.selected.collapse {
+  background-color: #F55F641A;
+}
+
+.side-nav li:hover,
+.side-nav li.selected {
+  border-radius: 4px;
+}
+
+.side-nav li:hover path,
+.side-nav li.selected path{
+  fill: #FFFFFF !important;
+}
+
+.side-nav li:hover path.stroked,
+.side-nav li.selected path.stroked {
+  fill: none !important;
+  stroke: #F55F64 !important;
+}
+
+.side-nav li:hover span,
+.side-nav li.selected span {
+  color: #F55F64 !important;
+}
+
+.side-nav li img {
+  height: 20px;
+  width: 20px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.side-nav .collapsibleLst {
+  transform-origin: top center;
+  top: 10px;
+}
+
+.side-nav .collapsibleLst.collapsed {
+  -webkit-animation: slidedown 0.1s forwards;
+  animation: slidedown 0.1s forwards;
+}
+
+.side-nav .collapsibleLst.noCollapsed {
+  -webkit-animation: slideup 0.1s forwards;
+  animation: slideup 0.1s forwards;
+}
+
+.side-nav .s-openner img {
+  height: 40px;
+  width: 40px;
+  object-fit: contain !important;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.side-nav .s-openner img:hover {
+  border-radius: 8px;
+  background-color: #454547be;
+}
+
+.side-nav.show-nav * {
+  visibility: visible;
+}
+
+.side-nav.hide-nav {
+  width: 0px;
+}
+
+.side-nav.hide-nav * {
+  visibility: hidden;
+}
+
+.side-nav .toggle-btn {
+  visibility: visible !important;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: -20px;
+  top: -10px;
+  background-color: #502C2B;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+  animation: pulse 2s infinite;
+  z-index: 9999;
+}
+
+.side-nav .toggle-btn img {
+  visibility: visible !important;
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+}
+
+.toggle-help {
+  font-size: 14px;
+  width: 250px;
+  height: 50px;
+  border-radius: 8px;
+  background: #fff !important;
+  position: absolute;
+  opacity: 1 !important;
+  left: 110px;
+  top: 0px;
+  z-index: 9999999;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-weight: 600;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px 0px;
+}
+
+.toggle-help::before {
+  background: #fff;
+  content: '';
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 5px;
+  left: -10px;
+  transform: rotate(45deg);
+}
+
+.toggle-help .close-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  width: 20px !important;
+  height: 20px !important;
+  cursor: pointer;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+@keyframes slidedown {
+  0% {
+    position: relative;
+    z-index: 1;
+    visibility: visible;
+    transform: scaleY(0);
+  }
+
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes slideup {
+  0% {
+    transform: scaleY(1);
+  }
+
+  100% {
+    position: absolute;
+    z-index: -1;
+    visibility: hidden;
+    transform: scaleY(0);
+  }
+}

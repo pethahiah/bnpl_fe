@@ -1,0 +1,31 @@
+.notfound-wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.notfound-wrapper h1 {
+  font-size: 38px;
+}
+
+.notfound-wrapper span {
+  font-size: 24px;
+}
+
+.notfound-wrapper > .go-back {
+  text-decoration: none;
+  margin: 20px 0;
+  background-color: rgba(80,44,43,.882);
+  font-size: 14px;
+  font-weight: bold;
+  color: #FFFFFF;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: padding 0.1s ease-in-out;
+}
+.notfound-wrapper > .go-back:hover {
+  padding: 10px 25px;
+}

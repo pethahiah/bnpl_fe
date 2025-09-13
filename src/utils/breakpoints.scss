@@ -1,0 +1,16 @@
+$breakpoints: (
+    "mobile": 481px,
+    "tab": 820px,
+);
+
+@mixin mobile {
+    @media (max-width: map-get($breakpoints, "mobile")) {
+        @content;
+    }
+}
+
+@mixin tab {
+    @media (max-width: map-get($breakpoints, "tab")) {
+        @content;
+    }
+}
