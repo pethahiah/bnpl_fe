@@ -1,5 +1,6 @@
 import { FormEvent, useState } from "react"
-import Input, { Select as SelectComponent } from '../../../../../components/Input';
+import Input, { Select as SelectComponent } from '../../../../../../components/Input';
+import AddEmployees from "./AddEmployees";
 
 
 const Step1 = () => {
@@ -30,7 +31,7 @@ const Step3 = () => {
 }
 
 
-const CreateMandate = ({ handleClose }: any) => {
+const CreatePaymentItem = ({ handleClose }: any) => {
     const [step, setStep] = useState<1 | 2 | 3>(1);
     const [data, setData] = useState({
        "productId": '',
@@ -54,15 +55,15 @@ const CreateMandate = ({ handleClose }: any) => {
         "referenceCode": "",
         "collectionAccountNumber": "",
         "collectionAccountName": "",
-        "mandateType": "",
+        "Payment ItemType": "",
         "routingOption": "Default",
         "requestCode": ""
     });
     const stepper = {
         1: {
-            title: 'Product Information',
+            title: 'Item information',
             Icon: Step1,
-            formTitle: 'Setup Mandate for your customer'
+            formTitle: 'Setup Payment Item'
         },
         2: {
             title: 'Bank Details',
@@ -117,8 +118,8 @@ const CreateMandate = ({ handleClose }: any) => {
                 </div>
             </div>
             <div className="m-auto max-w-[450px] w-[90vw] bg-white max-h-[800px] h-fit mt-8 rounded-2xl px-8 py-6"> 
-                <h2 className="w-full text-center text-pretty mb-2">{currentStep.formTitle}</h2>
-                { step === 1 && (
+                {/* <h2 className="w-full text-center text-pretty mb-2">{currentStep.formTitle}</h2> */}
+                {/* { step === 1 && (
                     <form onSubmit={handleStep1Submit}>
                         <SelectComponent
                             data={['Wallet', 'Direct debit', 'Card payment', 'Cheque deposit']}
@@ -234,7 +235,7 @@ your own platform."
                             min={1}
                             value={data.remarks}
                             onChange={handleChange}
-                            info='Brief description of the purpose of this mandate. Example
+                            info='Brief description of the purpose of this Payment Item. Example
 Cable Tv, subscription.'
                         />
                         <SelectComponent
@@ -274,9 +275,9 @@ Cable Tv, subscription.'
                 { step === 3 && (
                     <form onSubmit={handleStep1Submit}>
                         <div className="w-full p-3 bg-[#4560ED1A] text-xs rounded text-[#222222] mb-4">
-                            Your institution has specified that collection for this mandate should be
+                            Your institution has specified that collection for this Payment Item should be
                             remitted to specific account in their selected Financial Institution. 
-                            Please specify a collection account for this mandate.
+                            Please specify a collection account for this Payment Item.
                         </div>
                         <SelectComponent
                             data={['Wallet', 'Direct debit', 'Card payment', 'Cheque deposit']}
@@ -298,7 +299,7 @@ Cable Tv, subscription.'
                             onChange={handleChange}
                         />
                         <Input
-                            label="Upload your Mandate Document"
+                            label="Upload your Payment Item Document"
                             placeholder="0"
                             name="fileName"
                             type="file"
@@ -309,13 +310,16 @@ Cable Tv, subscription.'
                         />
                         <div className="flex flex-row justify-between items-center mt-5 w-full">
                             <button type="button" className="py-2 rounded border border-peth-red text-black !w-[48%]"  onClick={handlePrev}>Previous</button>
-                            <button type="submit" className="py-2 rounded bg-peth-red text-white !w-[48%]">Create mandate</button>
+                            <button type="submit" className="py-2 rounded bg-peth-red text-white !w-[48%]">Create Payment Item</button>
                         </div>
                     </form>
-                )}
+                )} */}
+                <AddEmployees handleDone={function (): void {
+                    throw new Error("Function not implemented.");
+                } } />
             </div>
         </div>
     );
 };
 
-export default CreateMandate;
+export default CreatePaymentItem;

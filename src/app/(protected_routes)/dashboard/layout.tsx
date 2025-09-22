@@ -8,7 +8,7 @@ import ScanSVG from "@/components/SVG/ScanSVG";
 import TransactionsSVG from "@/components/SVG/TransactionsSVG";
 import ProductSVG from "@/components/SVG/Product";
 import MandatesSVG from "@/components/SVG/WalletSVG";
-import { icons } from '../../assets';
+import { icons } from '../../../assets';
 import { usePathname } from "next/navigation";
 import ProtectedRoute from "@/components/Auth/ProtectedRoutes";
 import { useSession } from "next-auth/react";

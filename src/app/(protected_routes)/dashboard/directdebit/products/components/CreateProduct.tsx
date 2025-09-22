@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Input, { Select as SelectComponent } from '../../../../../components/Input';
+import Input, { Select as SelectComponent } from '../../../../../../components/Input';
 
 export default function CreateProduct() {
   const [data, setData] = useState({

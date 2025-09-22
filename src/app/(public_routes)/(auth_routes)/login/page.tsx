@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
-import Button from "../../../components/Button";
-import Input from "../../../components/Input";
-import UnAuthWrapper from "../../../components/UnAuthWrapper";
+import Button from "../../../../components/Button";
+import Input from "../../../../components/Input";
+import UnAuthWrapper from "../../../../components/UnAuthWrapper";
 import { icons } from "@/assets";
 import { attemptLogin } from "@/store/actions/auth/authActions";
 

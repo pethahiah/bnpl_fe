@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from "react"
-import Input, { AdvancedSelect, Select as SelectComponent } from '../../../../../components/Input';
+import Input, { AdvancedSelect, Select as SelectComponent } from '../../../../../../components/Input';
 import { formatCurrency } from "@/utils/common";
 import Button from "@/components/Button";
 import useVerificationDone from "@/hooks/useVerificationDone";

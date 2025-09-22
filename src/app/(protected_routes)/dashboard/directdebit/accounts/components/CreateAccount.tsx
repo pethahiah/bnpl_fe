@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Input, { Select as SelectComponent } from '../../../../../components/Input';
+import Input, { Select as SelectComponent } from '../../../../../../components/Input';
 import { getDDBanks } from "@/store/actions/debit/banking";
 
 export default function CreateProduct() {

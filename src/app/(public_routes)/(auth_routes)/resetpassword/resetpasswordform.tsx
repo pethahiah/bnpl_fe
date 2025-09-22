@@ -2,10 +2,10 @@
 
 import axios from "axios";
 import { useState } from "react";
-import Button from "../../../components/Button";
-import Input from "../../../components/Input";
-import UnAuthWrapper from "../../../components/UnAuthWrapper";
-import { toastWrapper } from "../../../utils/toastWrapper";
+import Button from "../../../../components/Button";
+import Input from "../../../../components/Input";
+import UnAuthWrapper from "../../../../components/UnAuthWrapper";
+import { toastWrapper } from "../../../../utils/toastWrapper";
 import { useRouter } from "next/navigation";
 import useAuthRedirect from "@/hooks/useAuthRedirect";
 import { signIn } from "next-auth/react";

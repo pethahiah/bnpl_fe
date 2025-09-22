@@ -6,12 +6,12 @@ import {
   useState
 } from "react";
 import Button from "@/components/Button";
-import Input from "@/components/Input";
+import Input, { AdvancedSelect, Select } from "@/components/Input";
 import UnAuthWrapper from "@/components/UnAuthWrapper";
-import { scrollUp } from "../../../utils/common";
+import { scrollUp } from "../../../../utils/common";
 import { useRouter } from 'next/navigation';
 
-import { IRegisterActionBody } from "@/utils/types/authTypes";
+import { IRegisterActionBody, IUserType } from "@/utils/types/authTypes";
 import { attemptLogin, registerAccount } from "@/store/actions/auth/authActions";
 import toast from "react-hot-toast";
 
@@ -24,6 +24,7 @@ function SignUp() {
     email: "",
     phone: "",
     password: "",
+    userType: "customers",
     password_confirmation: "",
   });
 
@@ -50,7 +51,7 @@ function SignUp() {
       name: `${data.lastName} ${data.firstName}`,
       email: data.email,
       phone: data.phone,
-      usertype: "merchant",
+      usertype: data.userType as IUserType,
       password: data.password,
       password_confirmation: data.password_confirmation,
     }
@@ -107,19 +108,17 @@ function SignUp() {
               />
             </div>
           </div>
+          <Input
+            label="Email Address"
+            placeholder="someone@example.com"
+            name="email"
+            required
+            type="email"
+            value={data.email}
+            onChange={handleChange}
+            info={"You will recieve your account verification code and login credentials on this email address."}
+          />
           <div className="flex justify-between gap-3 flex-wrap">
-            <div className="w-[100%] sm:w-[48%]">
-              <Input
-                label="Email Address"
-                placeholder="someone@example.com"
-                name="email"
-                required
-                type="email"
-                value={data.email}
-                onChange={handleChange}
-                info={"You will recieve your account verification code and login credentials on this email address."}
-              />
-            </div>
             <div className="w-[100%] sm:w-[48%]">
               <Input
                 label="Phone Numer"
@@ -131,6 +130,23 @@ function SignUp() {
                 name="phone"
                 value={data.phone}
                 onChange={handleChange}
+              />
+            </div>
+            <div className="w-[100%] sm:w-[48%]">
+              <AdvancedSelect
+                label="Account Type"
+                placeholder="Select your account type"
+                name="userType"
+                required
+                type="userType"
+                value={data.userType}
+                onChange={handleChange}
+                data={
+                  [
+                    { label: "Customer", value: "customer" },
+                    { label: "Business", value: "merchant" },
+                  ]
+                }
               />
             </div>
           </div>
