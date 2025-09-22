@@ -10,9 +10,9 @@ import UnAuthImg from '../../../public/working-from-home-ergonomic-workstation.p
 interface IUnAuthWrapper {
   title: string;
   subTitle: string;
-  ctaQuestion: string;
-  ctaText: string;
-  ctaRoute: string;
+  ctaQuestion?: string;
+  ctaText?: string;
+  ctaRoute?: string;
   children: React.ReactElement;
   subTitleComponent?: () => React.ReactElement;
   overrideContentClass?: string;
@@ -43,7 +43,7 @@ function UnAuthWrapper({
           <Logo />
         </div>
         <div className="h-[100%] min-h-[80vh] flex justify-center items-center w-full">
-          <div className='flex flex-col m-auto min-w-[350px] h-[100%]'>
+          <div className='flex flex-col m-auto min-w-[350px] h-[100%] w-full'>
             {/* {img && <img src={img} alt="" className='!w-16 !h-16 mb-6' />} */}
             <div className='w-full flex flex-col justify-start items-start'>
               <h1 className='text-3xl text-az-black-900'>{title}</h1>
@@ -58,7 +58,7 @@ function UnAuthWrapper({
               {
                 ctaAction ? (
                   <Button
-                    label={ctaText}
+                    label={ctaText || ""}
                     type='text'
                     overrideStyle={{
                       color: 'rgba(80,44,43,.882)',
@@ -70,7 +70,7 @@ function UnAuthWrapper({
                 ) : (
                   <Link className='ml-2' href={`/${ctaRoute}`}>
                     <Button
-                      label={ctaText}
+                      label={ctaText || ""}
                       type='text'
                       overrideStyle={{
                         color: 'rgba(80,44,43,.882)',

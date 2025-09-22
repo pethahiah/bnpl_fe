@@ -1,24 +1,20 @@
 "use client"
 
-import axios from "axios";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import UnAuthWrapper from "../../../components/UnAuthWrapper";
-import { toastWrapper, signalObj } from "../../../utils/toastWrapper";
-import { jwtDecode } from "jwt-decode";
-import { useAppDispatch } from "@/store/hooks";
-import { login, User } from "@/store/slice/authSlice";
-import { signIn } from "next-auth/react";
+import { icons } from "@/assets";
+import { attemptLogin } from "@/store/actions/auth/authActions";
 
 function Login() {
-  const dispatch = useAppDispatch();
-  const router = useRouter();
   const [data, setData] = useState({
-    userName: '',
+    email: '',
     password: '',
   });
+
+  const router = useRouter();
 
   const handleChange = (name: string, value: string) => {
     setData((prevState) => ({
@@ -28,76 +24,47 @@ function Login() {
   }
 
   const handleSubmit = async (event: React.FormEvent) => {
-    const url = `${process.env.NEXT_PUBLIC_BASE_IDENTITY}auth`;
     event.preventDefault();
 
-    toastWrapper(
-      axios.post(`${url}/login`, data, {
-        ...signalObj,
-        headers: {
-          'ApplicationID': process.env.NEXT_PUBLIC_API_KEY,
-        }
-      }),
-      'Trying to Authenticate you...',
-      async (resp) => {
-        if (resp.data.responseCode == 100) {
-          localStorage.setItem('email', data.userName);
-          router.push('/verify');
-          return resp.data.message || 'Login Successful, please verify OTP sent to you!';
-        } else {
-          await signIn("credentials", {
-            redirect: false,
-            token: resp.data.data.token,
-          });
-
-          if (typeof window !== 'undefined') {
-            localStorage.removeItem('email')
-          }
-          router.push('/dashboard');
-          return 'Welcome, Login Successful.';
+    attemptLogin(
+      data,
+      (resp) => {
+        if (resp.success && typeof window !== 'undefined') {
+          localStorage.setItem('email', data.email);
+          localStorage.setItem('password', data.password);
+          router.push("/verify");
         }
       },
-      'Email or Password Incorrect.',
-      (err) => {
-        // @ts-ignore
-        if (err?.response.status == 99) {
-          localStorage.setItem('email', data.userName);
-          router.push('/resetpassword');
-          // @ts-ignore
-          return err?.response.data.message || 'Reset password';
-        }
-        // @ts-ignore
-        return 'Email or Password Incorrect.'
-      }
-    );
+    )
   }
 
   return (
     <UnAuthWrapper
       title="Welcome back."
       subTitle="Log in to your account to proceed."
-      ctaQuestion="Don’t have a Paythru account?"
+      ctaQuestion="Don’t have an account?"
       ctaRoute="signup"
       ctaText="Sign Up"
     >
-      <form onSubmit={handleSubmit} className="max-w-[400px]">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <Input
-          label="Email"
-          placeholder="Email"
-          name="userName"
-          value={data.userName}
+          label="Email Address"
+          placeholder="someone@example.com"
+          name="email"
+          type="email"
+          value={data.email}
           onChange={handleChange}
+          icon={icons.at}
           required
         />
         <Input
           label="Password"
-          placeholder="Password"
+          placeholder="Enter Password"
           name="password"
-          value={data.password}
           type="password"
-          ctaText="Forgot Password?"
-          ctaRoute="forgotpassword"
+          value={data.password}
           onChange={handleChange}
+          icon={icons.padLock}
           required
         />
         <Button
@@ -108,7 +75,7 @@ function Login() {
         />
       </form>
     </UnAuthWrapper>
-  );
+  )
 }
 
 export default Login;

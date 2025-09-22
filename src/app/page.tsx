@@ -6,7 +6,7 @@ export default function Home() {
   const navigate = useRouter();
   return (
     <div className="text-4xl font-extrabold w-full h-[100vh] flex flex-col justify-center items-center">
-      <p>Welcome to Paythru</p>
+      <p>Welcome to BNPL</p>
       <div className="w-30 flex flex-row h-auto gap-2">
         <Button
           label="Register"

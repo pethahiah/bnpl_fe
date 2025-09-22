@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const Logo = () => {
     return (
-        <Image src={LogoImg} alt='' />
+        <p className="text-3xl font-bold text-red-500">BNPL</p>
     )
 };
 
@@ -11,6 +11,6 @@ export default Logo;
 
 export const WhiteLogo = () => {
     return (
-        <Image src={LogoImg} alt='' />
+        <p className="text-3xl font-bold text-white">BNPL</p>
     )
 };

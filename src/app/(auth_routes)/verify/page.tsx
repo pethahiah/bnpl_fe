@@ -1,20 +1,37 @@
 "use client"
 
-import { icons } from "@/assets";
 import Button from "@/components/Button";
-import UnAuthWrapper from "@/components/UnAuthWrapper";
-import useAuthRedirect from "@/hooks/useAuthRedirect";
-import { toastWrapper } from "@/utils/toastWrapper";
-import axios from "axios";
-import { signIn } from "next-auth/react";
+import { InputLabel } from "@/components/Input";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import OtpInput from 'react-otp-input';
+import { toastWrapper } from "@/utils/toastWrapper";
+import { signIn } from "next-auth/react";
+import { attemptLogin } from "@/store/actions/auth/authActions";
+import { IAttemptLoginActionBody } from "@/utils/types/authTypes";
+import UnAuthWrapper from "@/components/UnAuthWrapper";
 
 
-export default function VerifyOtpPage() {
-  useAuthRedirect();
-  const [time, setTime] = useState(10 * 60); // Initial time in seconds
+export default function VerifyOTPPage() {
+  const [code, setCode] = useState('');
+  const [time, setTime] = useState(60); // Initial time in seconds
+  const [email, setEmail] = useState<string | null>(null)
+  const [password, setPassword] = useState<string | null>(null)
+
+  const router = useRouter()
+
+
+  if (typeof window !== 'undefined') {
+    setEmail(localStorage.getItem('email') as string);
+    setPassword(localStorage.getItem('password') as string);
+  }
+
+
+  useEffect(() => {
+    if (!email && !password) {
+      router.back()
+    }
+  }, [email, password])
 
   useEffect(() => {
     if (time > 0) {
@@ -26,46 +43,29 @@ export default function VerifyOtpPage() {
     }
   }, [time]);
 
-  const formatTime = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-  };
-
-  const [code, setCode] = useState('');
-  const router = useRouter();
-
   const handleResend = () => {
     if (time !== 0) {
       return;
     }
-    const url = `${process.env.NEXT_PUBLIC_BASE_IDENTITY}Otp/send`;
-    const login = axios.post(url, {
-      emailAddress: localStorage.getItem('email'),
-    });
-    toastWrapper(
-      login,
-      'Resending code...',
-      (resp) => {
-        setTime(10 * 60);
-        return resp.data.message || 'Code sent Successful!';
-      },
-      'Error resending code.',
-      (err) => {
-        return err?.message || 'Error resending code.'
+    attemptLogin({ email, password } as IAttemptLoginActionBody, (resp) => {
+      if (resp.success && typeof window !== 'undefined') {
+        setTime(60);
+        setCode("");
+        localStorage.setItem('email', email || "");
+        localStorage.setItem('password', password || "");
       }
-    );
+    },)
   }
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
     toastWrapper(
       signIn("credentials", {
         redirect: false,
-        email: localStorage.getItem('email'),
+        email: email,
         otp: code,
-      }),
+      },),
       'Verifying you...',
       (resp) => {
         if (!resp.ok || resp.status !== 200) {
@@ -73,6 +73,7 @@ export default function VerifyOtpPage() {
         }
         if (typeof window !== 'undefined') {
           localStorage.removeItem('email');
+          localStorage.removeItem('password');
         }
 
         // redirect to dashboard after verification
@@ -81,20 +82,24 @@ export default function VerifyOtpPage() {
       },
       'Error validating OTP!',
     );
-  }
+  };
 
-  const label = time === 0 ? 'Resend' : `Resend in ${formatTime(time)} minutes`;
+  const formatTime = (seconds: number) => {
+    // const minutes = Math.floor(seconds / 60);
+    return `${seconds.toString().padStart(2, '0')}`;
+  };
+
+  const label = time === 0 ? 'Resend' : `Resend in ${formatTime(time)}s`;
+
   return (
     <UnAuthWrapper
-      title="Verify your email."
-      subTitle="Enter code sent to your email below."
-      ctaQuestion="Have an account?"
-      ctaRoute="login"
-      ctaText="Login"
-      img={icons.verifyEmail}
+      title="OTP Authentication"
+      subTitle={`${email ? `Enter your the 6-digit code sent to this email ${email}.` : "Enter your the 6-digit code"}`}
+
     >
       <>
         <form onSubmit={handleSubmit} className="max-w-[400px]">
+          <InputLabel props={{ label: "Enter OTP" }} />
           <OtpInput
             value={code}
             onChange={setCode}
@@ -110,26 +115,28 @@ export default function VerifyOtpPage() {
           />
 
           <Button
-            label="Verify Email"
+            label="Proceed"
             onClick={() => null}
             type="flat"
             btnActionType="submit"
           />
+
+          <div className="flex items-center justify-between">
+            <p>{"Didn't get any code?"}</p>
+
+            <Button
+              disabled={time !== 0}
+              type="text"
+              label={label}
+              onClick={handleResend}
+              className="!rounded-full !m-0 !text-black !bg-[#F55F6414] px-5 disabled:opacity-40 disabled:cursor-not-allowed"
+              overrideStyle={{
+                color: '#F55F6414',
+                width: 'max-content',
+              }}
+            />
+          </div>
         </form>
-        <div className="flex gap-2 items-center">
-          <p>I didn’t get verification email?</p>
-          <Button
-            label={label}
-            type='text'
-            overrideStyle={{
-              color: 'rgba(80,44,43,.882)',
-              width: 'max-content',
-              marginLeft: '0.5rem',
-              textTransform: 'unset'
-            }}
-            onClick={handleResend}
-          />
-        </div>
       </>
     </UnAuthWrapper>
   )

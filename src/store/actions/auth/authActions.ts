@@ -3,11 +3,49 @@ import { silentHTTPCaller, toastWrapper } from "../../../utils/toastWrapper";
 import { appDispatch } from "../../store";
 import { setProduct, setShowVerificationPending } from "../../slice/authSlice";
 import { IHandleDone, IHandleError } from "@/utils/type";
+import getBaseURL from "@/utils/getBaseURL";
+import { IAttemptLoginActionBody, IRegisterActionBody } from "@/utils/types/authTypes";
 
-const url = process.env.NEXT_PUBLIC_BASE_IDENTITY;
+const url = getBaseURL();
 
-export const getAuthOTP = (data: {emailAddress: string}, handleDone: IHandleDone, handleError: IHandleError) => {
- 
+export const registerAccount = (data: IRegisterActionBody, handleDone: IHandleDone) => {
+  const call = axios.post(`${url}register`, data, {
+    headers: {
+      ApplicationId: process.env.NEXT_PUBLIC_API_KEY || ''
+    }
+  })
+
+  toastWrapper(call, 'Creating your account...', (resp) => {
+    handleDone();
+    return resp.data.message || 'Account created successfully!';
+  }, 'Error creating account!');
+}
+
+
+export const attemptLogin = (data: IAttemptLoginActionBody, handleDone?: IHandleDone, handleError?: IHandleDone) => {
+  const call = axios.post(`${url}AttemptLogin`, data)
+
+  toastWrapper(
+    call,
+    'Logging you in...',
+    (resp) => {
+      if (handleDone) handleDone(resp?.data);
+      return resp.data.message || 'Login Successful, OTP sent to your email!';
+    },
+    'Invalid Credentials!',
+    (err) => {
+      //@ts-expect-error - This will error in strict mode
+      return err?.response?.data?.message || 'Invalid Credentials!';
+    },
+    () => {
+      if (handleError) handleError();
+    }
+  )
+}
+
+// ------------------------------------------------------------------------------------------
+export const getAuthOTP = (data: { emailAddress: string }, handleDone: IHandleDone, handleError: IHandleError) => {
+
   const call = axios.post(`${url}Otp/email`, data, {
     headers: {
       ApplicationId: process.env.NEXT_PUBLIC_API_KEY || ''
