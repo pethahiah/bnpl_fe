@@ -38,10 +38,10 @@ export const createDDSalary = (data: any, handleDone: (arg0: any) => void) => {
   const call = axios.post(`${url}create-direct-debit`, data, {
     headers
   })
-  toastWrapper(call, 'Configuring direct debit...', (resp) => {
+  toastWrapper(call, 'Configuring BNPL...', (resp) => {
     handleDone(resp.data);
     return resp.data.message || '';
-  }, 'Error creating direct debit');
+  }, 'Error creating BNPL');
 }
 
 export const getWalletSalary = (handleDone: (arg0: any) => void, loading?: (arg0: boolean) => any) => {

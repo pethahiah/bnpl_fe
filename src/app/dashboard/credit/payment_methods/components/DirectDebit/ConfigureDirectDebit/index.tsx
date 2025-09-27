@@ -72,7 +72,7 @@ const ConfigureDirectDebit = ({ handleDone }: { handleDone: () => void }) => {
   return (
     <div className="w-full flex flex-col justify-between items-center p-7 py-8">
       <div className='flex flex-col justify-center items-start'>
-        <h3 className='text-3xl text-center capitalize'>Configure direct debit</h3>
+        <h3 className='text-3xl text-center capitalize'>Configure BNPL</h3>
       </div>
       <form onSubmit={submitForm} className='py-5 flex w-full flex-col flex-grow flex-auto items-center '>
         <div className='flex flex-row w-full justify-between'>

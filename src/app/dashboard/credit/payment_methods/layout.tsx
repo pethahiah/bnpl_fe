@@ -24,7 +24,7 @@ export default function ProductLayout({
     {
         name: 'directdebit',
         path: `/dashboard/credit/payment_methods/directdebit`,
-        title: "Direct Debit",
+        title: "BNPL",
     },
   ];
   const checkIsActive = (route: string | undefined) => {
@@ -73,7 +73,7 @@ export default function ProductLayout({
                                     <path d="M19.5 11H1.5C0.948 11 0.5 10.552 0.5 10C0.5 9.448 0.948 9 1.5 9H19.5C20.052 9 20.5 9.448 20.5 10C20.5 10.552 20.052 11 19.5 11Z" fill="white"/>
                                     <path d="M10.5 20C9.948 20 9.5 19.552 9.5 19V1C9.5 0.448 9.948 0 10.5 0C11.052 0 11.5 0.448 11.5 1V19C11.5 19.552 11.052 20 10.5 20Z" fill="white"/>
                                 </svg>
-                                <span className="font-medium">Configure Direct Debit</span>
+                                <span className="font-medium">Configure BNPL</span>
                             </button>
                         )
                     }

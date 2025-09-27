@@ -125,7 +125,7 @@ const fields = [
 const paymentMethodMap = {
   "Wallet": "wallet",
   "Card payment": "Card",
-  "Direct debit": "DirectDebit",
+  "BNPL": "DirectDebit",
   'Cheque deposit': 'OfflinePayment'
 }
 
@@ -404,7 +404,7 @@ const CreateMandate = ({ handleClose, beneficiariesListId, renderCancel }: any) 
                             />
                         </div>
                         <SelectComponent
-                            data={['Wallet', 'Direct debit', 'Card payment', 'Cheque deposit']}
+                            data={['Wallet', 'BNPL', 'Card payment', 'Cheque deposit']}
                             label="Payment option"
                             placeholder=""
                             name="paymentOption"
@@ -432,7 +432,7 @@ const CreateMandate = ({ handleClose, beneficiariesListId, renderCancel }: any) 
                             )
                         }
                         {
-                            data.paymentOption === 'Direct debit' && (
+                            data.paymentOption === 'BNPL' && (
                                 <SelectComponent
                                     data={[...ddAccounts.map((itm: any) => (itm.accountNumber)), "Configure new account"]}
                                     label="Select debit account"

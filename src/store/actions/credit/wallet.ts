@@ -36,10 +36,10 @@ export const createDD = (data: { accountNumber: string; accountName: string; max
   const call = axios.post(`${url}create-direct-debit`, data, {
     headers: salaryHeader
   })
-  toastWrapper(call, 'Configuring direct debit...', (resp) => {
+  toastWrapper(call, 'Configuring BNPL...', (resp) => {
     handleDone(resp.data);
     return resp.data.message || '';
-  }, 'Error creating direct debit');
+  }, 'Error creating BNPL');
 }
 
 export const getWallet = (handleDone: { (value: SetStateAction<IWalletData>): void; (arg0: any): void; }, loading?: { (value: SetStateAction<boolean>): void; (arg0: boolean): any; }) => {
