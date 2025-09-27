@@ -45,7 +45,7 @@ const navItems = [
   // },
   {
     name: 'direct-debit',
-    title: "Paythru Direct Debit",
+    title: "Paythru BNPL",
     type: "collapse",
     children: [
       {
@@ -198,7 +198,7 @@ export default function DashboardLayout({
             <div className="text-left hidden lg:block">
               <h4 className='text-[18px] font-[500] flex flex-row items-center capitalize'>
 
-                {pathTitle || "PayThru Direct Debit"}
+                {pathTitle || "PayThru BNPL"}
               </h4>
               <p className='w-max text-left text-[12px] font-[400] text-[#222222CC]'></p>
             </div>

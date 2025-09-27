@@ -7,7 +7,7 @@ export default function Home() {
     const data = [
         {
             title: 'Pensions Remittances',
-            label: 'Direct Debit',
+            label: 'BNPL',
             description: 'Easily make reoccuring payments according to your schedules.',
             link: '/dashboard',
             linkText: 'Get Started',

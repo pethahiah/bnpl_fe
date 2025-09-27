@@ -121,7 +121,7 @@ const CreateMandate = ({ handleClose }: any) => {
                 { step === 1 && (
                     <form onSubmit={handleStep1Submit}>
                         <SelectComponent
-                            data={['Wallet', 'Direct debit', 'Card payment', 'Cheque deposit']}
+                            data={['Wallet', 'BNPL', 'Card payment', 'Cheque deposit']}
                             label="Target Product"
                             placeholder=""
                             name="productId"
@@ -279,7 +279,7 @@ Cable Tv, subscription.'
                             Please specify a collection account for this mandate.
                         </div>
                         <SelectComponent
-                            data={['Wallet', 'Direct debit', 'Card payment', 'Cheque deposit']}
+                            data={['Wallet', 'BNPL', 'Card payment', 'Cheque deposit']}
                             label="Collection bank name"
                             placeholder=""
                             name="collectionBankName"

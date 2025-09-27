@@ -132,7 +132,7 @@ export default function Home() {
           data: [
             {
               value: "directDebit",
-              label: "Direct Debit",
+              label: "BNPL",
               chipBg: "#FFECEC"
             },
             {

@@ -95,7 +95,7 @@ const header = [
 export default function Dashboard() {
   return (
     <div className="min-h-screen font-[family-name:var(--font-geist-sans)] flex flex-col gap-5  p-5">
-      <OverViewCards cards={cardsArr} title="Direct Debit Overview" />
+      <OverViewCards cards={cardsArr} title="BNPL Overview" />
       <div className="w-full flex gap-5 justify-start lg:justify-start flex-wrap  flex-col lg:flex-row items-center lg:items-start">
         <ChartContainer
           className="flex-[1.5] max-w-[800px] "

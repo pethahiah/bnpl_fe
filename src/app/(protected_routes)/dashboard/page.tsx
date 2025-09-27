@@ -6,8 +6,8 @@ export default function Home() {
     const navigate = useRouter();
     const data = [
         {
-            title: 'Direct Debit',
-            label: 'Direct Debit',
+            title: 'BNPL',
+            label: 'BNPL',
             description: 'Easily make reoccuring payments according to your schedules.',
             link: '/dashboard/directdebit/directdebit_dashboard',
             linkText: 'Get Started',

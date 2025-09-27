@@ -97,7 +97,7 @@ ensure this selection corresponds with your selected
           onChange={handleChange}
         />
         <SelectComponent
-          data={['Wallet', 'Direct debit', 'Card payment', 'Cheque deposit']}
+          data={['Wallet', 'BNPL', 'Card payment', 'Cheque deposit']}
           label="Collection account"
           placeholder=""
           name="productId"
