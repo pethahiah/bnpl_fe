@@ -24,7 +24,7 @@ function SignUp() {
     email: "",
     phone: "",
     password: "",
-    userType: "customers",
+    userType: "customer",
     password_confirmation: "",
   });
 
@@ -56,20 +56,22 @@ function SignUp() {
       password_confirmation: data.password_confirmation,
     }
 
-    registerAccount(reqBody, () => {
-      attemptLogin(
-        {
+    registerAccount(
+      reqBody, () => {
+      attemptLogin({
+        isSilent: true,
+        data: {
           email: data.email,
           password: data.password,
         },
-        (resp) => {
+        handleDone: (resp) => {
           if (resp.success && typeof window !== 'undefined') {
             localStorage.setItem('email', data.email);
             localStorage.setItem('password', data.password);
             navigate.push("/verify");
           }
         },
-      )
+      })
     });
   }
 
@@ -143,7 +145,7 @@ function SignUp() {
                 onChange={handleChange}
                 data={
                   [
-                    { label: "Customer", value: "customer" },
+                    { label: "Personal", value: "customer" },
                     { label: "Business", value: "merchant" },
                   ]
                 }

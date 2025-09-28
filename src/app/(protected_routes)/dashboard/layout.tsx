@@ -27,14 +27,14 @@ const navItems = [
     icon: () => <HomeSVG />,
     type: "link",
   },
-  {
-    name: "compliance",
-    path: `/dashboard/compliance`,
-    title: "Compliance",
-    img: icons.overview,
-    icon: () => <DocumentSVG />,
-    type: "link",
-  },
+  // {
+  //   name: "compliance",
+  //   path: `/dashboard/compliance`,
+  //   title: "Compliance",
+  //   img: icons.overview,
+  //   icon: () => <DocumentSVG />,
+  //   type: "link",
+  // },
   // {
   //   name: "guide",
   //   path: `/dashboard/guide`,
@@ -43,100 +43,53 @@ const navItems = [
   //   icon: () => <ScanSVG />,
   //   type: "link",
   // },
-  {
-    name: 'direct-debit',
-    title: "Paythru BNPL",
-    type: "collapse",
-    children: [
-      {
-        name: 'directdebit_dashboard',
-        path: `/dashboard/directdebit/directdebit_dashboard`,
-        title: "Dashboard",
-        img: icons.refundme,
-        icon: () => <DashboardSVG />,
-        type: "link"
-      },
-      {
-        name: 'accounts',
-        path: `/dashboard/directdebit/accounts`,
-        title: "Accounts",
-        img: icons.refundme,
-        icon: () => <BankSVG />,
-        type: "link"
-      },
-      {
-        name: 'products',
-        path: `/dashboard/directdebit/products`,
-        title: "Products",
-        img: icons.refundme,
-        icon: () => <ProductSVG />,
-        type: "link"
-      },
-      {
-        name: 'transactions',
-        path: `/dashboard/directdebit/transactions`,
-        title: "Transactions",
-        img: icons.refundme,
-        icon: () => <TransactionsSVG />,
-        type: "link"
-      },
-      {
-        name: 'mandates',
-        path: `/dashboard/directdebit/mandates`,
-        title: "Mandates management",
-        img: icons.refundme,
-        icon: () => <MandatesSVG />,
-        type: "link"
-      },
-    ]
-  },
-  {
-    name: 'credit',
-    title: "Paythru Credit",
-    type: "collapse",
-    children: [
-      {
-        name: 'credit_dashboard',
-        path: `/dashboard/credit/credit_dashboard`,
-        title: "Dashboard",
-        img: icons.refundme,
-        icon: () => <DashboardSVG />,
-        type: "link"
-      },
-      {
-        name: 'bankcodes',
-        path: `/dashboard/credit/bankcodes`,
-        title: "Bankcodes",
-        img: icons.refundme,
-        icon: () => <BankSVG />,
-        type: "link"
-      },
-      {
-        name: 'payees',
-        path: `/dashboard/credit/payees`,
-        title: "Payees",
-        img: icons.refundme,
-        icon: () => <TransactionsSVG />,
-        type: "link"
-      },
-      {
-        name: 'payments',
-        path: `/dashboard/credit/payments`,
-        title: "Payments",
-        img: icons.refundme,
-        icon: () => <MandatesSVG />,
-        type: "link"
-      },
-      {
-        name: 'payment_methods',
-        path: `/dashboard/credit/payment_methods`,
-        title: "Payment methods",
-        img: icons.refundme,
-        icon: () => <ProductSVG />,
-        type: "link"
-      },
-    ]
-  },
+  // {
+  //   name: 'direct-debit',
+  //   title: "Paythru BNPL",
+  //   type: "collapse",
+  //   children: [
+  //     {
+  //       name: 'directdebit_dashboard',
+  //       path: `/dashboard/directdebit/directdebit_dashboard`,
+  //       title: "Dashboard",
+  //       img: icons.refundme,
+  //       icon: () => <DashboardSVG />,
+  //       type: "link"
+  //     },
+  //     {
+  //       name: 'accounts',
+  //       path: `/dashboard/directdebit/accounts`,
+  //       title: "Accounts",
+  //       img: icons.refundme,
+  //       icon: () => <BankSVG />,
+  //       type: "link"
+  //     },
+  //     {
+  //       name: 'products',
+  //       path: `/dashboard/directdebit/products`,
+  //       title: "Products",
+  //       img: icons.refundme,
+  //       icon: () => <ProductSVG />,
+  //       type: "link"
+  //     },
+  //     {
+  //       name: 'transactions',
+  //       path: `/dashboard/directdebit/transactions`,
+  //       title: "Transactions",
+  //       img: icons.refundme,
+  //       icon: () => <TransactionsSVG />,
+  //       type: "link"
+  //     },
+  //     {
+  //       name: 'mandates',
+  //       path: `/dashboard/directdebit/mandates`,
+  //       title: "Mandates management",
+  //       img: icons.refundme,
+  //       icon: () => <MandatesSVG />,
+  //       type: "link"
+  //     },
+  //   ]
+  // },
 ];
 export default function DashboardLayout({
   children,
@@ -145,29 +98,25 @@ export default function DashboardLayout({
 }>) {
   const pathName = usePathname()
   const exactPath = pathName.split('/').at(-1);
-  const { data: session } = useSession()
+  const { data: session } = useSession()  
 
   const [userDetails, setUserDetails] = useState<{
-    firstname: string | null;
-    lastname: string | null;
+    name: string | null;
     email: string | null | undefined;
     companyName: string | null | undefined;
   }>({
-    firstname: null,
-    lastname: null,
+    name: null,
     email: null,
     companyName: null
   })
 
   useEffect(() => {
     setUserDetails({
-      //@ts-expect-error - This will error in strict mode
-      firstname: session?.user?.firstname,
-      //@ts-expect-error - This will error in strict mode
-      lastname: session?.user?.lastname,
+      //@ts-expect-error - This will error in  mode
+      name: session?.user?.name,
       email: session?.user?.email,
-      //@ts-expect-error - This will error in strict mode
-      companyName: session?.user?.companyName
+      //@ts-expect-error - This will error in  mode
+      companyName: session?.user?.company_name
     })
   }, [session])
 
@@ -207,7 +156,7 @@ export default function DashboardLayout({
               <div className="top-profile cursor-pointer flex  justify-center items-center p-[10px] rounded-full gap-[10px] lg:bg-[#F55F640D]">
                 <div className="profile-pic w-[40px] h-[40px] rounded-full flex justify-center items-center bg-[#F55F64] text-[16px] font-[500] text-[white]">
 
-                  {getAbbr(`${userDetails?.lastname} ${userDetails?.firstname}`)}
+                  {getAbbr(userDetails?.name)}
                 </div>
                 <div className="flex flex-col gap-1 text-left h-auto">
 
@@ -220,7 +169,7 @@ export default function DashboardLayout({
             {/* mobile */}
             <div className="flex lg:hidden justify-center items-center gap-[10px]">
               <div className="profile-pic w-[40px] h-[40px] rounded-full flex justify-center items-center bg-[#0898A0] text-[16px] font-[500] text-[white]">
-                {getAbbr(`${userDetails?.lastname} ${userDetails?.firstname}`)}
+                {getAbbr(userDetails?.name)}
               </div>
               <div className="flex flex-col gap-1 text-left h-auto">
                 <h4 className="text-[16px] font-semibold leading-[100%] text-[#222222CC]">{userDetails?.companyName}</h4>

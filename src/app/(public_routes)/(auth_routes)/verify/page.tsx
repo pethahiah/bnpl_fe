@@ -15,15 +15,15 @@ import UnAuthWrapper from "@/components/UnAuthWrapper";
 export default function VerifyOTPPage() {
   const [code, setCode] = useState('');
   const [time, setTime] = useState(60); // Initial time in seconds
-  const [email, setEmail] = useState<string | null>(null)
-  const [password, setPassword] = useState<string | null>(null)
 
   const router = useRouter()
 
+  let email: string | null = null
+  let password: string | null = null
 
   if (typeof window !== 'undefined') {
-    setEmail(localStorage.getItem('email') as string);
-    setPassword(localStorage.getItem('password') as string);
+    email = localStorage.getItem('email');
+    password = localStorage.getItem('password');
   }
 
 
@@ -31,7 +31,7 @@ export default function VerifyOTPPage() {
     if (!email && !password) {
       router.back()
     }
-  }, [email, password])
+  }, [])
 
   useEffect(() => {
     if (time > 0) {
@@ -47,14 +47,17 @@ export default function VerifyOTPPage() {
     if (time !== 0) {
       return;
     }
-    attemptLogin({ email, password } as IAttemptLoginActionBody, (resp) => {
-      if (resp.success && typeof window !== 'undefined') {
-        setTime(60);
-        setCode("");
-        localStorage.setItem('email', email || "");
-        localStorage.setItem('password', password || "");
-      }
-    },)
+    attemptLogin({
+      data: { email, password } as IAttemptLoginActionBody,
+      handleDone: (resp) => {
+        if (resp.success && typeof window !== 'undefined') {
+          setTime(60);
+          setCode("");
+          localStorage.setItem('email', email || "");
+          localStorage.setItem('password', password || "");
+        }
+      },
+    })
   }
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -68,6 +71,8 @@ export default function VerifyOTPPage() {
       },),
       'Verifying you...',
       (resp) => {
+        console.log(resp);
+        
         if (!resp.ok || resp.status !== 200) {
           throw Error('Invalid OTP supplied!');
         }

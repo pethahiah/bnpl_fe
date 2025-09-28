@@ -8,7 +8,8 @@ import ArrowDownSVG from '../SVG/ArrowDownSVG';
 import LogoutSVG from '../SVG/Logout';
 import SettingsSVG from '../SVG/Settings';
 import { useAppSelector } from '@/store/hooks';
-import { handleSideNavToggle } from '@/store/actions/credit/dashboardActions';
+import { handleSideNavToggle } from '@/store/actions/dashboardActions';
+import { handleLogout } from '@/store/actions/auth/authActions';
 
 interface INavItem {
   name: string
@@ -31,9 +32,6 @@ const DashboardSideBar = ({ items, firstItem }: { items: Array<INavItem>, firstI
     }
   }, []);
 
-  const handleLogout = async () => {
-    await signOut({ redirect: true, callbackUrl: "/" });
-  }
 
   return (
     <>

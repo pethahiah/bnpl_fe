@@ -26,16 +26,16 @@ function Login() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    attemptLogin(
+    attemptLogin({
       data,
-      (resp) => {
-        if (resp.success && typeof window !== 'undefined') {
+      handleDone: (resp) => {        
+        if (resp.status === 200 && typeof window !== 'undefined') {
           localStorage.setItem('email', data.email);
           localStorage.setItem('password', data.password);
           router.push("/verify");
         }
       },
-    )
+    })
   }
 
   return (
@@ -65,6 +65,8 @@ function Login() {
           value={data.password}
           onChange={handleChange}
           icon={icons.padLock}
+          ctaText="Forgot Password?"
+          ctaRoute="forgotpassword"
           required
         />
         <Button

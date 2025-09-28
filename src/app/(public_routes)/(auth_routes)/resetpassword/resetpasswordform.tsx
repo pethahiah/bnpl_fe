@@ -1,24 +1,19 @@
 "use client"
 
-import axios from "axios";
 import { useState } from "react";
 import Button from "../../../../components/Button";
 import Input from "../../../../components/Input";
 import UnAuthWrapper from "../../../../components/UnAuthWrapper";
-import { toastWrapper } from "../../../../utils/toastWrapper";
 import { useRouter } from "next/navigation";
-import useAuthRedirect from "@/hooks/useAuthRedirect";
-import { signIn } from "next-auth/react";
+import { resetPassword } from "@/store/actions/auth/authActions";
 
 function ResetPasswordForm() {
-  useAuthRedirect();
   const [misMatchPsd, setMisMatchPsd] = useState(false);
   const [passError, setPassError] = useState(false);
   const [data, setData] = useState({
-    otp: '',
+    token: '',
     password: '',
     confirmPassword: '',
-    userName: window.localStorage.getItem('email')
   });
 
   const router = useRouter();
@@ -29,46 +24,32 @@ function ResetPasswordForm() {
       [name]: value
     }));
   }
-  const handleSubmit = (event: React.FormEvent) => {
-    const url = process.env.NEXT_PUBLIC_BASE_IDENTITY;
-    event.preventDefault();
-    toastWrapper(
-      axios.post(`${url}auth/password/reset`, data, {
-        headers: {
-          'ApplicationID': process.env.NEXT_PUBLIC_API_KEY,
-        }
-      }),
-      'Reseting your Password...',
-      async (resp) => {
-        await signIn("credentials", {
-          redirect: false,
-          token: resp.data.data.token,
-        });
 
-        if (typeof window !== 'undefined') {
-          localStorage.removeItem('email')
-        }
-        router.push('/dashboard');
-        return 'Welcome, Login Successful.';
-      },
-      'Error resetting password: Incorrect Verification Code.',
-    );
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    resetPassword(
+      { token: data.token, password: data.password },
+      (resp) => {
+        console.log(resp);
+        router.push('/login');
+      })
   }
 
   return (
     <UnAuthWrapper
       title="Reset Password."
-      subTitle="Enter verification code sent to your email and new password below."
+      subTitle="Enter verification token sent to your email and new password below."
       ctaQuestion="Don’t have an account?"
       ctaRoute="register"
       ctaText="Sign Up"
     >
-      <form onSubmit={handleSubmit} className="max-w-[400px]">
+      <form onSubmit={handleSubmit} className="">
         <Input
-          label="Verification Code"
-          placeholder="Code"
-          name="otp"
-          value={data.otp}
+          label="Verification Token"
+          placeholder="Token"
+          name="token"
+          value={data.token}
           required
           onChange={(name, value) => handleChange(name, value)}
         />
@@ -114,6 +95,7 @@ function ResetPasswordForm() {
           errorText='Password and Confirm Password must match!'
         />
         <Button
+          disabled={passError || misMatchPsd || !data.token || !data.password || !data.confirmPassword}
           label="Save"
           onClick={() => null}
           type="flat"
