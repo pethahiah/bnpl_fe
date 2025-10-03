@@ -1,6 +1,5 @@
 'use client'
 import { usePathname, useRouter } from 'next/navigation';
-import { signOut } from "next-auth/react";
 import Logo from '../Logo';
 import './dashboardSideBar.css';
 import { useEffect, useState } from 'react';
@@ -23,7 +22,7 @@ interface INavItem {
 
 const DashboardSideBar = ({ items, firstItem }: { items: Array<INavItem>, firstItem: string }) => {
   const { showNav } = useAppSelector((state) => state.dashboard);
-
+  const router = useRouter()
 
   useEffect(() => {
     const showInfo = localStorage.getItem('toggle-info');
@@ -31,7 +30,6 @@ const DashboardSideBar = ({ items, firstItem }: { items: Array<INavItem>, firstI
       localStorage.setItem('toggle-info', 'true');
     }
   }, []);
-
 
   return (
     <>
@@ -64,13 +62,7 @@ const DashboardSideBar = ({ items, firstItem }: { items: Array<INavItem>, firstI
         <div className="s-openner border-[#22222226] border-t w-10/12 self-center">
           <li
             className='flex flex-row justify-start items-center py-2 pl-2 !w-full h-8 cursor-pointer'
-            onClick={() => { }}>
-            <SettingsSVG />
-            <span className='text-white'>Users</span>
-          </li>
-          <li
-            className='flex flex-row justify-start items-center py-2 pl-2 !w-full h-8 cursor-pointer'
-            onClick={() => { }}>
+            onClick={() => {router.push("/dashboard/settings/profile")}}>
             <SettingsSVG />
             <span className='text-white'>Settings</span>
           </li>

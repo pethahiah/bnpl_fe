@@ -14,8 +14,6 @@ export default function ProtectedRoute({ children }:{
   useEffect(() => {
     if (status === "loading") return; // Do nothing while loading
     if (!session) router.push("/login");
-
-    console.log(session);
     
   }, [session, status, router]);
 

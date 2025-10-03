@@ -70,9 +70,7 @@ export default function VerifyOTPPage() {
         otp: code,
       },),
       'Verifying you...',
-      (resp) => {
-        console.log(resp);
-        
+      (resp) => {        
         if (!resp.ok || resp.status !== 200) {
           throw Error('Invalid OTP supplied!');
         }
@@ -100,7 +98,6 @@ export default function VerifyOTPPage() {
     <UnAuthWrapper
       title="OTP Authentication"
       subTitle={`${email ? `Enter your the 6-digit code sent to this email ${email}.` : "Enter your the 6-digit code"}`}
-
     >
       <>
         <form onSubmit={handleSubmit} className="max-w-[400px]">

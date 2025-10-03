@@ -93,7 +93,6 @@ export const resetPassword = (data: { token: string, password: string }, handleD
 
 export const handleLogout = async () => {
   await signOut({ redirect: true, callbackUrl: "/" });
-  localStorage.removeItem('tazat');
   localStorage.clear();
   return 'Logged out Successful!';
 }

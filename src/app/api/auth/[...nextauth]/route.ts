@@ -1,4 +1,5 @@
 import getBaseURL from "@/utils/getBaseURL";
+import { IProfileDetails } from "@/utils/types/profileTypes";
 import axios from "axios";
 import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -57,14 +58,20 @@ const authOptions = {
     error: "/login", // Error code passed in query string as ?error=
   },
   callbacks: {
-    async jwt({ token, user }: any) {
+    async jwt({ token, user, trigger, session }: any) {
       // Add user data to token when signing in
       if (user) {
         token.id = user.id;
         token.accessToken = user.accessToken;
         token.usertype = user.usertype;
-        token.userData = user.userData;
+        token.userData = user.userData as IProfileDetails;
       }
+
+      // If the session is updated via `useSession().update()`, use that data
+      if (trigger === "update" && session?.newUserData) {
+        token.userData = session.newUserData as IProfileDetails;
+      }
+
       return token;
     },
     async session({ session, token }: any) {
@@ -73,16 +80,19 @@ const authOptions = {
         session.id = token.id;
         session.usertype = token.usertype;
         session.accessToken = token.accessToken;
-        session.user = token.userData;
+        session.user = token.userData as IProfileDetails;
       }
       return session;
     },
     // Add this callback
     async signOut() {
       try {
-        // You can make a server-side call to invalidate the token
-        // This is useful if your auth provider requires server-side logout
-        return true;
+        await axios.get(`${url}logout`, {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+        return true;;
       } catch (error) {
         console.error("Error during signout:", error);
         // Return true to continue logout process even if token invalidation fails

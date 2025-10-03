@@ -12,10 +12,11 @@ import { icons } from '../../../assets';
 import { usePathname } from "next/navigation";
 import ProtectedRoute from "@/components/Auth/ProtectedRoutes";
 import { useSession } from "next-auth/react";
-import { getAbbr } from "@/utils/common";
 import { useEffect, useState } from "react";
 import { appDispatch } from "@/store/store";
 import { toggleSideNav } from "@/store/slice/dashboardSlice";
+import ProfilemageCircle from "@/components/profile/ProfilemageCircle";
+import Link from "next/link";
 
 
 const navItems = [
@@ -98,7 +99,7 @@ export default function DashboardLayout({
 }>) {
   const pathName = usePathname()
   const exactPath = pathName.split('/').at(-1);
-  const { data: session } = useSession()  
+  const { data: session } = useSession()
 
   const [userDetails, setUserDetails] = useState<{
     name: string | null;
@@ -115,7 +116,6 @@ export default function DashboardLayout({
       //@ts-expect-error - This will error in  mode
       name: session?.user?.name,
       email: session?.user?.email,
-      //@ts-expect-error - This will error in  mode
       companyName: session?.user?.company_name
     })
   }, [session])
@@ -146,31 +146,24 @@ export default function DashboardLayout({
             {/* desktop */}
             <div className="text-left hidden lg:block">
               <h4 className='text-[18px] font-[500] flex flex-row items-center capitalize'>
-
                 {pathTitle || "PayThru BNPL"}
               </h4>
               <p className='w-max text-left text-[12px] font-[400] text-[#222222CC]'></p>
             </div>
 
-            <div className="w-fit hidden lg:flex flex-row justify-between items-center">
+            <Link href={"/dashboard/profile"} className="w-fit hidden lg:flex flex-row justify-between items-center">
               <div className="top-profile cursor-pointer flex  justify-center items-center p-[10px] rounded-full gap-[10px] lg:bg-[#F55F640D]">
-                <div className="profile-pic w-[40px] h-[40px] rounded-full flex justify-center items-center bg-[#F55F64] text-[16px] font-[500] text-[white]">
-
-                  {getAbbr(userDetails?.name)}
-                </div>
+                <ProfilemageCircle size={40} />
                 <div className="flex flex-col gap-1 text-left h-auto">
-
                   <p className="text-[14px] font-semibold leading-[100%]">{userDetails?.companyName}</p>
                   <p className="text-[12px] font-light leading-[100%] text-[#222222CC]">{userDetails?.email}</p>
                 </div>
               </div>
-            </div>
+            </Link>
 
             {/* mobile */}
             <div className="flex lg:hidden justify-center items-center gap-[10px]">
-              <div className="profile-pic w-[40px] h-[40px] rounded-full flex justify-center items-center bg-[#0898A0] text-[16px] font-[500] text-[white]">
-                {getAbbr(userDetails?.name)}
-              </div>
+              <ProfilemageCircle size={40} />
               <div className="flex flex-col gap-1 text-left h-auto">
                 <h4 className="text-[16px] font-semibold leading-[100%] text-[#222222CC]">{userDetails?.companyName}</h4>
                 <p className="text-[12px] font-light leading-[100%] text-[#222222CC]">{userDetails?.email}</p>
