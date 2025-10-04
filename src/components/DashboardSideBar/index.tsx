@@ -9,8 +9,9 @@ import SettingsSVG from '../SVG/Settings';
 import { useAppSelector } from '@/store/hooks';
 import { handleSideNavToggle } from '@/store/actions/dashboardActions';
 import { handleLogout } from '@/store/actions/auth/authActions';
+import { useGetBaseLink } from '@/hooks/useUserType';
 
-interface INavItem {
+export interface INavItem {
   name: string
   path?: string
   title: string
@@ -60,12 +61,7 @@ const DashboardSideBar = ({ items, firstItem }: { items: Array<INavItem>, firstI
           </ul>
         </div>
         <div className="s-openner border-[#22222226] border-t w-10/12 self-center">
-          <li
-            className='flex flex-row justify-start items-center py-2 pl-2 !w-full h-8 cursor-pointer'
-            onClick={() => {router.push("/dashboard/settings/profile")}}>
-            <SettingsSVG />
-            <span className='text-white'>Settings</span>
-          </li>
+          <SidebarItem navItem={{ name: "settings", title: "Settings", type: "link", path: `${useGetBaseLink()}/settings/profile`, icon: () => <SettingsSVG /> }} width='100%' />
           <li className='flex flex-row justify-start items-center py-2 pl-2 !w-full h-8 cursor-pointer' onClick={() => {
             handleLogout()
           }}>
@@ -83,13 +79,13 @@ const DashboardSideBar = ({ items, firstItem }: { items: Array<INavItem>, firstI
   );
 }
 
-const SidebarItem = ({ navItem, firstItem }: { navItem: INavItem, firstItem?: string }) => {
+const SidebarItem = ({ navItem, firstItem, width }: { navItem: INavItem, firstItem?: string, width?: string }) => {
   const [collapsed, setCollapsed] = useState(true)
   const navigate = useRouter();
   const pathname = usePathname()
-  const location = pathname.split("/");
+  const location = (pathname || "/").split("/");
   return (
-    <div className='relative w-[80%] min-h-[32px] h-auto my-1 !p-0 flex flex-col items-center'>
+    <div style={{ width: width ? width : "80%" }} className='relative min-h-[32px] h-auto my-1 !p-0 flex flex-col items-center'>
       <li
         onClick={() => {
           if (navItem.type === "link") {
@@ -106,8 +102,8 @@ const SidebarItem = ({ navItem, firstItem }: { navItem: INavItem, firstItem?: st
       flex flex-row !h-auto min-h-[32px] !m-0 px-2 justify-between items-center cursor-pointer
       ${navItem.type}
       ${(
-            (navItem.title === 'Home' && location[2] === '') ||
-              location[2] === navItem.name ||
+            (navItem.title === 'Home' && location[3] === '') ||
+              location[3] === navItem.name ||
               (navItem.title === firstItem && location.length === 2) ||
               // (navItem.title === firstItem && location.length === 4) ||
               (location[4] && location[4] === navItem.name) ||

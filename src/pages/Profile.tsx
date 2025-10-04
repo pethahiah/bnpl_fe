@@ -5,14 +5,13 @@ import MultiStepFormWrapper from "@/components/Form/MultiStepFormWrapper"
 import ProfilemageCircle from "@/components/profile/ProfilemageCircle"
 import { getProfileDetails, updateProfileDetails } from "@/store/actions/profile/profileActions"
 import { useAppSelector } from "@/store/hooks"
-import { getAbbr } from "@/utils/common"
 import { country, states } from "@/utils/data"
 import { IKYCData, IProfileDetails, IProfileUpdateActionBody } from "@/utils/types/profileTypes"
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
 
-export default function AccountPage() {
+export default function ProfilePage() {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [data, setData] = useState<IProfileDetails | null>(null)
   const [editMode, setEditMode] = useState(false)

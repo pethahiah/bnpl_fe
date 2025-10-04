@@ -1,8 +1,9 @@
 'use client'
 
 import TabComponent from "@/components/TabComponent";
+import { useGetBaseLink } from "@/hooks/useUserType";
 
-export default function MandateLayout({
+export default function MerchantSettingsLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -10,14 +11,14 @@ export default function MandateLayout({
   const navItems = [
     {
       name: "profile",
-      path: `/dashboard/settings/profile`,
+      path: `${useGetBaseLink()}/settings/profile`,
       title: "Profile Update",
     },
-    {
-      name: "bvn",
-      path: `/dashboard/settings/bvn`,
-      title: "BVN Verification",
-    },
+    // {
+    //   name: "bvn",
+    //   path: `${useGetBaseLink()}/settings/bvn`,
+    //   title: "BVN Verification",
+    // },
   ];
   return (
     <>

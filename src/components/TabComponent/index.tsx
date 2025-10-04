@@ -57,7 +57,7 @@ export default function TabComponent({
   size?: TabComponentSize;
 }) {
   const pathname = usePathname();
-  const checkIsActive = (route: string | undefined) => route === pathname;
+  const checkIsActive = (route: string | undefined) => pathname?.startsWith(route || "");
   const styles = sizeStyles[size];
 
   return (
