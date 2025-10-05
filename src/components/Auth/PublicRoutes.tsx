@@ -11,7 +11,7 @@ export default function PublicRoutes({ children }: { children: React.ReactNode }
 
   useEffect(() => {
     if (status === "loading") return; // Do nothing while loading
-    if (session) router.push("/dashboard/");
+    if (session) router.push("/dashboard");
   }, [session, status, router]);
 
   if (status === "loading") {

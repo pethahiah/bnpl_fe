@@ -8,17 +8,23 @@ import custodianReducer from './slice/custodianSlice';
 import productReducer from './slice/productSlice';
 import employeesReducer from './slice/employeesSlice';
 import salaryPaymentReducer from './slice/salaryPaymentSlice'
+import profileReducer from './slice/profileSlice';
 
 
 export const store = configureStore({
   reducer: {
     loader: loaderReducer,
     auth: authReducer,
+    profile: profileReducer,
+
+    // -----------------------
+
     beneficiaries: beneficiariesReducer,
     payments: paymentsReducer,
     custodians: custodianReducer,
     dashboard: dashboardReducer,
     products: productReducer,
+
     employees: employeesReducer,
     salaryPayment: salaryPaymentReducer
   },

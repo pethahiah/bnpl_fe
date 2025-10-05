@@ -223,6 +223,8 @@ export const icons = {
 		"https://res.cloudinary.com/dfvx7yxrc/image/upload/v1738978290/Calendar_znbzzb.svg",
 	plusIcon:
 		"https://res.cloudinary.com/dfvx7yxrc/image/upload/v1750959176/plus_tewlox.svg",
+	padLock:
+		"https://res.cloudinary.com/dfvx7yxrc/image/upload/v1745616877/Lock_gepwxh.png",
 };
 
 export const vectors = {

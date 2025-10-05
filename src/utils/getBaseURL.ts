@@ -7,14 +7,4 @@ const getBaseURL = () => {
   return (env && env === 'development') ? dev : prod;
 };
 
-export const getIDBaseURL = () => {
-  return (env && env === 'development') ? process.env.NEXT_PUBLIC_ID_BASE_URL_DEV : process.env.NEXT_PUBLIC_ID_BASE_URL_PROD;
-};
-
 export default getBaseURL;
-
-export const getTransferBaseURL = () => {
-  return process.env.NEXT_PUBLIC_BASE_TRANSFER_SERVICE;
-  // return (env && env === 'development') ? process.env.NEXT_PUBLIC_ID_BASE_URL_DEV : process.env.NEXT_PUBLIC_ID_BASE_URL_PROD;
-};
-
