@@ -5,7 +5,7 @@ import loaderReducer from './slice/loaderSlice';
 import beneficiariesReducer from './slice/beneficiariesSlice';
 import paymentsReducer from './slice/paymentsSlice';
 import custodianReducer from './slice/custodianSlice';
-import productReducer from './slice/productSlice';
+import storesReducer from './slice/storesSlice';
 import employeesReducer from './slice/employeesSlice';
 import salaryPaymentReducer from './slice/salaryPaymentSlice'
 import profileReducer from './slice/profileSlice';
@@ -16,14 +16,15 @@ export const store = configureStore({
     loader: loaderReducer,
     auth: authReducer,
     profile: profileReducer,
+    stores: storesReducer,
+    dashboard: dashboardReducer,
+
 
     // -----------------------
 
     beneficiaries: beneficiariesReducer,
     payments: paymentsReducer,
     custodians: custodianReducer,
-    dashboard: dashboardReducer,
-    products: productReducer,
 
     employees: employeesReducer,
     salaryPayment: salaryPaymentReducer

@@ -3,6 +3,8 @@
 import HomeSVG from "@/components/SVG/Home";
 import { icons } from '@/assets';
 import DashboardComponentWrapper from "@/components/DashboardComponentWrapper";
+import DocumentSVG from "@/components/SVG/DocumentsSVG";
+import RefundMeSVG from "@/components/SVG/Product";
 
 
 const navItems = [
@@ -14,14 +16,13 @@ const navItems = [
     icon: () => <HomeSVG />,
     type: "link",
   },
-  // {
-  //   name: "compliance",
-  //   path: `/dashboard/compliance`,
-  //   title: "Compliance",
-  //   img: icons.overview,
-  //   icon: () => <DocumentSVG />,
-  //   type: "link",
-  // },
+  {
+    name: "stores",
+    path: `/dashboard/merchant/stores`,
+    title: "Stores",
+    icon: () => <RefundMeSVG />,
+    type: "link",
+  },
   // {
   //   name: "guide",
   //   path: `/dashboard/guide`,
