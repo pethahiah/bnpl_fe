@@ -14,7 +14,7 @@ export const useDashboardRouteFor = (type: "customer" | "merchant" | "admin" | n
   switch (type) {
     case "customer": return "/dashboard/customer"
     case "merchant": return "/dashboard/merchant"
-    // case "admin": return "/dashboard/admin"
+    case "admin": return "/dashboard/admin"
     default: return "/dashboard"
   }
 }

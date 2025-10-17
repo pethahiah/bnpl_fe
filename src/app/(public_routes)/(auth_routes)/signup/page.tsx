@@ -160,6 +160,7 @@ function SignUp() {
             required
             value={data.password}
             onChange={handleChange}
+            type="password"
           />
           <Input
             label="Confirm Password"
@@ -168,6 +169,7 @@ function SignUp() {
             required
             value={data.password_confirmation}
             onChange={handleChange}
+            type="password"
           />
           <div className="flex flex-row justify-between w-full">
             <div className="w-5/12">

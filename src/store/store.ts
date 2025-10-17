@@ -2,14 +2,10 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './slice/authSlice';
 import dashboardReducer from './slice/dashboardSlice';
 import loaderReducer from './slice/loaderSlice';
-import beneficiariesReducer from './slice/beneficiariesSlice';
-import paymentsReducer from './slice/paymentsSlice';
-import custodianReducer from './slice/custodianSlice';
 import storesReducer from './slice/storesSlice';
 import bankAccountsReducer from './slice/bankAccountsSlice';
-import employeesReducer from './slice/employeesSlice';
-import salaryPaymentReducer from './slice/salaryPaymentSlice'
 import profileReducer from './slice/profileSlice';
+import adminReducer from './slice/adminSlice';
 
 
 export const store = configureStore({
@@ -20,16 +16,7 @@ export const store = configureStore({
     stores: storesReducer,
     bankAccounts: bankAccountsReducer,
     dashboard: dashboardReducer,
-
-
-    // -----------------------
-
-    beneficiaries: beneficiariesReducer,
-    payments: paymentsReducer,
-    custodians: custodianReducer,
-
-    employees: employeesReducer,
-    salaryPayment: salaryPaymentReducer
+    admin: adminReducer,
   },
 })
 

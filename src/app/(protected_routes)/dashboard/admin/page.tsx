@@ -1,5 +1,5 @@
-import HomePage from "@/pages/merchant/Home";
+import BNPLSettingsPage from "@/pages/admin/BNPLSettings";
 
 export default function AdminHomePage() {
-  return (<HomePage />)
+  return (<BNPLSettingsPage />)
 }

@@ -20,6 +20,9 @@ export default async function middleware(
       async authorized({ token }) {
         if (token) {
           // User is authenticated
+          if (pathname.startsWith("/dashboard/admin") && token.usertype !== "admin") {
+            return false; // Not authorized
+          }
           if (pathname.startsWith("/dashboard/merchant") && token.usertype !== "merchant") {
             return false; // Not authorized
           }
@@ -35,11 +38,14 @@ export default async function middleware(
 
   // Define redirect URLs for unauthorized access
   if (isAuthenticated) {
+    if (pathname.startsWith("/dashboard/admin") && token?.usertype !== "admin") {
+      return NextResponse.redirect(new URL("/dashboard", req.url));
+    }
     if (pathname.startsWith("/dashboard/merchant") && token?.usertype !== "merchant") {
-      return NextResponse.redirect(new URL("/dashboard/customer", req.url));
+      return NextResponse.redirect(new URL("/dashboard", req.url));
     }
     if (pathname.startsWith("/dashboard/customer") && token?.usertype !== "customer") {
-      return NextResponse.redirect(new URL("/dashboard/merchant", req.url));
+      return NextResponse.redirect(new URL("/dashboard", req.url));
     }
   }
 
