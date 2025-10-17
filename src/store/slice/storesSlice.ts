@@ -1,30 +1,20 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface StoreDTO {
-  documentId: 1,
-  documentName: string,
-  description: string,
-  dateUploaded: string,
-  documentStatus: 'UnderReview' | '',
-  requiredFormat: string,
-  uploadedFileName: string,
-  remarks: string
-}
+import { IMerchantStore } from "@/utils/types/merchantStoreTypes";
+import { createSlice } from "@reduxjs/toolkit";
 
 interface StoreState {
-  StoreData: StoreDTO[] | []
+  merchantStores: IMerchantStore[] | []
 }
 
 const initialState: StoreState = {
-  StoreData: [],
+  merchantStores: [],
 }
 
 export const storesSlice = createSlice({
-  name: "StoreData",
+  name: "merchantStores",
   initialState,
   reducers: {
     addStore: (state, action) => {
-      state.StoreData = action.payload;
+      state.merchantStores = action.payload;
     },
   },
 })

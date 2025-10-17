@@ -6,6 +6,7 @@ import beneficiariesReducer from './slice/beneficiariesSlice';
 import paymentsReducer from './slice/paymentsSlice';
 import custodianReducer from './slice/custodianSlice';
 import storesReducer from './slice/storesSlice';
+import bankAccountsReducer from './slice/bankAccountsSlice';
 import employeesReducer from './slice/employeesSlice';
 import salaryPaymentReducer from './slice/salaryPaymentSlice'
 import profileReducer from './slice/profileSlice';
@@ -17,6 +18,7 @@ export const store = configureStore({
     auth: authReducer,
     profile: profileReducer,
     stores: storesReducer,
+    bankAccounts: bankAccountsReducer,
     dashboard: dashboardReducer,
 
 
