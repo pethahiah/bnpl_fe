@@ -4,7 +4,6 @@ import { IHandleDone, IHandleError } from "@/utils/type";
 import getBaseURL from "@/utils/getBaseURL";
 import { IProfileDetails, IProfileUpdateActionBody } from "@/utils/types/profileTypes";
 import { appDispatch } from "@/store/store";
-import { login } from "@/store/slice/authSlice";
 import { saveProfile } from "@/store/slice/profileSlice";
 
 const url = getBaseURL();

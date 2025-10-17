@@ -5,6 +5,7 @@ import { icons } from '@/assets';
 import DashboardComponentWrapper from "@/components/DashboardComponentWrapper";
 import DocumentSVG from "@/components/SVG/DocumentsSVG";
 import RefundMeSVG from "@/components/SVG/Product";
+import BankSVG from "@/components/SVG/Bank";
 
 
 const navItems = [
@@ -23,14 +24,14 @@ const navItems = [
     icon: () => <RefundMeSVG />,
     type: "link",
   },
-  // {
-  //   name: "guide",
-  //   path: `/dashboard/guide`,
-  //   title: "Setup Guide",
-  //   img: icons.overview,
-  //   icon: () => <ScanSVG />,
-  //   type: "link",
-  // },
+  {
+    name: "bank-accounts",
+    path: `/dashboard/merchant/bank-accounts`,
+    title: "Bank Accounts",
+    img: icons.overview,
+    icon: () => <BankSVG />,
+    type: "link",
+  },
   // {
   //   name: 'direct-debit',
   //   title: "Paythru BNPL",
